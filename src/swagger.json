@@ -35,10 +35,40 @@
         },
         "responses": {
           "201": {
-            "description": "User Created"
+            "description": "User Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "id": "fafcab17-627e-48ca-801b-38b678df4763",
+                  "admin": false,
+                  "name": "John Doe",
+                  "email": "jd@test.com",
+                  "created_at": "2022-01-15T17:09:36.676Z",
+                  "updated_at": "2022-01-15T17:09:36.676Z"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request",
+
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "Email Already in use."
+                }
+              }
+            }
           }
         }
       },
@@ -59,10 +89,43 @@
         ],
         "responses": {
           "200": {
-            "description": "List all users"
+            "description": "List all users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Permission danied"
+            "description": "Permission danied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Not found": {
+                    "value": {
+                      "error": "User not found."
+                    }
+                  },
+                  "Not admin": {
+                    "value": {
+                      "error": "Permission denied."
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -86,10 +149,40 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "id": "fafcab17-627e-48ca-801b-38b678df4763",
+                  "admin": true,
+                  "name": "John Doe",
+                  "email": "jd@test.com",
+                  "created_at": "2022-01-15T17:09:36.676Z",
+                  "updated_at": "2022-01-15T17:09:36.676Z"
+                }
+              }
+            }
           },
           "404": {
-            "description": "User not found"
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User not found"
+                }
+              }
+            }
           }
         }
       }
@@ -112,10 +205,67 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "id": "fafcab17-627e-48ca-801b-38b678df4763",
+                  "admin": true,
+                  "name": "John Doe",
+                  "email": "jd@test.com",
+                  "created_at": "2022-01-15T17:09:36.676Z",
+                  "updated_at": "2022-01-15T17:09:36.676Z"
+                }
+              }
+            }
           },
           "404": {
-            "description": "User not found"
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "admin": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
           }
         }
       }
